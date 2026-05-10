@@ -1536,8 +1536,9 @@ response = client.messages.<span class="f">create</span>(
         <strong>NEIS 교육정보 개방 포털</strong>(<a href="https://open.neis.go.kr" target="_blank" style="color:var(--accent);">open.neis.go.kr</a>)에서 무료로 받는 키 한 개로 전국 모든 학교의 급식·시간표·학사일정을 가져올 수 있습니다.
       </p>
       <p>
-        이 페이지에는 미리 발급받은 혜화여고용 키가 들어 있습니다.
-        직접 만들 때는 위 사이트에 가입 → 인증키 신청 → 즉시 발급 → URL 안에 끼워넣으면 됩니다.
+        직접 발급받은 인증키를 아래에 붙여넣고 사용하세요.
+        가입 → 인증키 신청 → 즉시 발급 → 이 페이지의 입력칸에 붙여넣으면 끝입니다.
+        이 페이지는 키를 어디로도 보내지 않고 <strong>오직 여러분 브라우저 안에서만</strong> 씁니다.
       </p>
       <ul class="bullets" style="margin-top:8px;">
         <li>교육청코드 <code class="inline">B10</code> = 서울특별시교육청</li>
@@ -1553,6 +1554,10 @@ response = client.messages.<span class="f">create</span>(
         <p>기본은 이번 달 전체. 날짜를 바꾸면 원하는 기간의 중식 메뉴·칼로리·알러지 정보를 한 번에 가져옵니다.</p>
       </div>
       <div class="practice-body">
+        <div class="input-row">
+          <label for="neis-key" style="min-width: 70px;">API 키:</label>
+          <input type="password" id="neis-key" placeholder="NEIS 인증키 (붙여넣기)" autocomplete="off" />
+        </div>
         <div class="input-row">
           <label for="meal-from">시작일:</label>
           <input type="date" id="meal-from" />
@@ -1576,10 +1581,10 @@ response = client.messages.<span class="f">create</span>(
     </div>
 
     <div class="note">
-      <strong>🔑 키 노출에 대해:</strong> 페이지 소스를 보면 NEIS 키가 그대로 들어 있습니다.
-      NEIS 키는 (1) 공개된 데이터만 다루고 (2) 일일 호출 한도가 정해져 있어서 노출돼도 큰 사고는 안 납니다.
-      그래도 진짜 서비스에선 환경변수로 옮기는 게 좋아요.
-      <strong>다음 실습(Claude)은 절대 이렇게 두면 안 됩니다.</strong>
+      <strong>🔑 키 보관 습관:</strong> NEIS 키는 (1) 공개된 데이터만 다루고 (2) 일일 호출 한도가 정해져 있어서 노출돼도 큰 사고는 잘 안 납니다.
+      그래서 옛날 코드들은 페이지 소스에 그대로 박아두기도 했죠.
+      그래도 좋은 습관은 이 페이지처럼 <strong>입력칸으로 분리</strong>하거나 환경변수로 빼는 것.
+      <strong>다음 실습의 Claude 키</strong>는 노출되면 곧바로 결제로 이어지니 더더욱 그렇습니다.
     </div>
   </section>
 
@@ -1985,7 +1990,6 @@ response = client.messages.<span class="f">create</span>(
   });
 
   // ============ 7. NEIS 급식식단표 ============
-  const NEIS_KEY = '4296cb0be65445a6960a2f21588efdac';
   const SCHOOL = { atpt: 'B10', code: '7010116' };
   const ALLERGENS = {
     1: '난류', 2: '우유', 3: '메밀', 4: '땅콩', 5: '대두',
@@ -2002,12 +2006,19 @@ response = client.messages.<span class="f">create</span>(
   }
 
   function buildMealUrl() {
+    const key = document.getElementById('neis-key').value.trim();
     const from = (document.getElementById('meal-from').value || '').replaceAll('-', '');
     const to = (document.getElementById('meal-to').value || '').replaceAll('-', '');
-    return `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${NEIS_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${SCHOOL.atpt}&SD_SCHUL_CODE=${SCHOOL.code}&MLSV_FROM_YMD=${from}&MLSV_TO_YMD=${to}`;
+    return `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${key}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${SCHOOL.atpt}&SD_SCHUL_CODE=${SCHOOL.code}&MLSV_FROM_YMD=${from}&MLSV_TO_YMD=${to}`;
   }
 
   function callMeal() {
+    const key = document.getElementById('neis-key').value.trim();
+    if (!key) {
+      alert('NEIS 인증키를 먼저 입력해주세요. (open.neis.go.kr 에서 무료 발급)');
+      document.getElementById('neis-key').focus();
+      return;
+    }
     const url = buildMealUrl();
     setUrl('meal-url', url);
     send({
@@ -2053,8 +2064,8 @@ response = client.messages.<span class="f">create</span>(
     });
   }
 
-  ['meal-from', 'meal-to'].forEach(id =>
-    document.getElementById(id).addEventListener('change', () => setUrl('meal-url', buildMealUrl())));
+  ['meal-from', 'meal-to', 'neis-key'].forEach(id =>
+    document.getElementById(id).addEventListener('input', () => setUrl('meal-url', buildMealUrl())));
 
   // 기본 날짜: 이번달 1일 ~ 말일
   (function initMeal() {
