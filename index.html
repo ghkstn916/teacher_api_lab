@@ -1109,8 +1109,21 @@
     </div>
 
     <div class="card">
+      <h3>🪪 "토큰(token)" 이라는 말도 비슷한 거예요</h3>
       <p>
-        이제 그 "키를 요구하는 API"를 들여다 볼 차례. 키에는 <strong>성격이 전혀 다른 두 종류</strong>가 있어요. 같은 "API 키"라는 이름에 속아 똑같이 다루면 사고가 납니다.
+        API 키와 함께 자주 등장하는 단어가 <strong>토큰(token)</strong>입니다. <em>"GitHub 토큰", "Bearer token", "JWT", "Access token"</em> … 이름은 다양해도 정체는 비슷해요. 모두 <strong>"이 호출이 누구 것인지"를 증명하는 신분증</strong>입니다.
+      </p>
+      <p>
+        그래서 학생들에게 처음 설명할 땐 <strong>"API 키 ≈ 토큰 = 호출하는 사람의 신분증"</strong> 정도로 묶어서 알려줘도 충분합니다. 실제로 HTTP 헤더에 들어가는 자리와 역할도 거의 같아요 — 둘 다 보통 <code class="inline">Authorization</code> 또는 <code class="inline">x-api-key</code> 헤더에 실어 보냅니다.
+      </p>
+      <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">
+        🔍 한 단계 더 들어가면 둘 사이에 미묘한 차이는 있어요. <strong>API 키</strong>는 보통 한 번 발급되면 <em>오래 그대로 쓰는 정적 비밀번호</em> 같고, <strong>토큰</strong>은 <em>유효기간이 있고 만료되면 다시 발급</em>받는 경우가 많아요(특히 OAuth/JWT). 하지만 "처음 배울 때는 둘 다 같은 거" 라고 생각해도 무방합니다.
+      </p>
+    </div>
+
+    <div class="card">
+      <p>
+        이제 그 "키를 요구하는 API"를 들여다 볼 차례. 키(또는 토큰)에는 <strong>성격이 전혀 다른 두 종류</strong>가 있어요. 같은 "API 키"라는 이름에 속아 똑같이 다루면 사고가 납니다.
       </p>
     </div>
 
