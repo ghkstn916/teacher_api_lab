@@ -1076,9 +1076,41 @@
     </div>
 
     <div class="card">
+      <h3>🚦 잠깐 — API 와 API 키는 다른 거예요</h3>
       <p>
-        많은 API는 <strong>키(API key)</strong>를 요구합니다. "당신이 누군지" 신원을 밝히는 일종의 비밀번호죠.
-        그런데 키에는 <strong>성격이 전혀 다른 두 종류</strong>가 있습니다. 같은 "API 키"라는 이름에 속아 똑같이 다루면 사고가 납니다.
+        헷갈리기 쉬워서 먼저 정리하고 갈게요. <strong>API</strong> 는 "프로그램끼리 데이터를 주고받는 <strong>약속</strong>" — 어디로 부탁할지(URL), 어떻게 부탁할지(GET/POST), 어떻게 받을지(JSON) 가 정해진 거예요. <strong>API 키</strong> 는 거기에 종종 따라붙는 "<strong>신원 확인 수단</strong>" 일 뿐, 두 개념은 <strong>별개</strong>입니다.
+      </p>
+      <p>
+        그래서 <strong>키 없는 API 도 잔뜩 있어요.</strong> 우리가 곧 해볼 <strong>실습 1~6</strong>(강아지·이름→나이·공휴일·날씨·환율·국가 정보) 은 모두 키 없이 누구나 호출하는 <strong>공개(Public) API</strong> 입니다. URL 하나만 부르면 바로 JSON 이 돌아와요. (대신 IP 기준 호출 횟수 제한은 있습니다.)
+      </p>
+      <div class="analogy" style="margin-top: 16px;">
+        <div class="analogy-card">
+          <div class="icon">🌐</div>
+          <h4>공개 API (실습 1~6)</h4>
+          <div class="map">키 없음 · 그냥 호출</div>
+          <p>"이 자료는 누구나 자유롭게 가져가세요." 가장 친절한 형태의 API. 학생들에게 처음 보여주기 좋아요.</p>
+        </div>
+        <div class="analogy-card">
+          <div class="icon">📊</div>
+          <h4>데이터 키 (실습 7)</h4>
+          <div class="map">키 필요 · 무료</div>
+          <p>NEIS·공공데이터포털 같은 곳. "누가 얼마나 부르는지" 추적하려고 키를 받아요. 무료지만 한도가 있어요.</p>
+        </div>
+        <div class="analogy-card">
+          <div class="icon">🤖</div>
+          <h4>서비스 키 (실습 8)</h4>
+          <div class="map">키 필요 · 유료</div>
+          <p>Claude·OpenAI 같은 AI · 결제 서비스. 키 = 결제 수단. 노출되면 본인 카드로 결제됩니다.</p>
+        </div>
+      </div>
+      <p style="margin-top: 14px; font-size: 14px; color: var(--muted);">
+        👉 이 페이지의 흐름도 그래서 <strong>"키 없는 공개 API 6개 → 키 있는 API 2개"</strong> 순서로 짜여 있어요. 일단 1~6 에서 <em>"API 호출이 결국 URL 하나로 JSON 받는 일"</em> 이라는 감을 잡고, 그 다음 키를 다루러 갑니다.
+      </p>
+    </div>
+
+    <div class="card">
+      <p>
+        이제 그 "키를 요구하는 API"를 들여다 볼 차례. 키에는 <strong>성격이 전혀 다른 두 종류</strong>가 있어요. 같은 "API 키"라는 이름에 속아 똑같이 다루면 사고가 납니다.
       </p>
     </div>
 
