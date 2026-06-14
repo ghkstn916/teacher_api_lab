@@ -918,6 +918,39 @@
     color: var(--danger);
     border-color: #fca5a5;
   }
+
+  /* 실습 9 — 위키백과 */
+  .wiki-card { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+  .wiki-card > img { width: 130px; height: 130px; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); flex-shrink: 0; }
+  .wiki-body { flex: 1; min-width: 220px; }
+  .wiki-body h5 { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .wiki-desc { font-size: 13px; color: var(--subtle); margin-bottom: 10px; }
+  .wiki-extract { font-size: 14px; color: var(--muted); line-height: 1.7; }
+  .wiki-link { display: inline-block; margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--accent); text-decoration: none; }
+  .wiki-link:hover { text-decoration: underline; }
+
+  /* 실습 10 — QR */
+  .qr-card { text-align: center; }
+  .qr-card img { border-radius: 10px; border: 1px solid var(--border); background: #fff; }
+  .qr-cap { font-size: 13px; color: var(--subtle); margin-top: 10px; }
+
+  /* 실습 11 — 미세먼지 */
+  .air-title { font-weight: 700; color: var(--text); margin-bottom: 14px; }
+  .air-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .air-box { border: 2px solid var(--border); border-radius: 14px; padding: 18px 12px; text-align: center; background: var(--surface); }
+  .air-emoji { font-size: 32px; line-height: 1; }
+  .air-val { font-size: 30px; font-weight: 800; margin: 8px 0 2px; }
+  .air-val span { font-size: 13px; font-weight: 600; color: var(--subtle); margin-left: 3px; }
+  .air-label { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+  .air-badge { display: inline-block; padding: 3px 14px; border-radius: 999px; color: #fff; font-size: 13px; font-weight: 700; }
+  .air-note { font-size: 12px; color: var(--subtle); margin-top: 12px; text-align: center; }
+
+  /* 종합 실습 — 범용 테스터 */
+  .pg-examples { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 4px 0 12px; }
+  .pg-chip { padding: 5px 12px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; font-size: 13px; color: var(--muted); cursor: pointer; font-family: inherit; }
+  .pg-chip:hover { background: var(--surface-3); color: var(--text); }
+  .pg-result { font-size: 14px; color: var(--muted); }
+  .pg-result p { margin-bottom: 4px; }
 </style>
 </head>
 <body>
@@ -956,7 +989,11 @@
     <a href="#part11">11. 수업 활용</a>
     <a href="#part12">12. 급식 (데이터 키)</a>
     <a href="#part13">13. Claude 챗봇 (서비스 키)</a>
-    <a href="#part14">14. 다음 단계</a>
+    <a href="#part14">14. 백과사전</a>
+    <a href="#part15">15. QR 코드</a>
+    <a href="#part16">16. 미세먼지</a>
+    <a href="#part17">17. 직접 호출</a>
+    <a href="#part18">18. 다음 단계</a>
   </nav>
 
   <!-- Part 1: API란? -->
@@ -1718,10 +1755,181 @@ response = client.messages.<span class="f">create</span>(
     </div>
   </section>
 
-  <!-- Part 14: 다음 단계 -->
+  <!-- Part 14: Practice 9 - Wikipedia -->
   <section class="part" id="part14">
     <div class="part-header">
       <div class="part-number">14</div>
+      <div class="part-title-group">
+        <h2 class="part-title">실습 9 — 백과사전 요약 가져오기</h2>
+        <p class="part-subtitle">검색어를 URL 경로(주소) 안에 넣는 방식. 수업 자료 만들 때 바로 씁니다.</p>
+      </div>
+    </div>
+
+    <div class="practice" id="practice-wiki">
+      <div class="practice-head">
+        <span class="practice-tag">실습 9</span>
+        <h4>📖 위키백과 — 문서 요약</h4>
+        <p>낱말·인물·장소를 입력하면 한국어 위키백과의 요약문과 대표 이미지를 돌려줍니다. 키가 필요 없어요.</p>
+      </div>
+      <div class="practice-body">
+        <div class="input-row">
+          <label for="wiki-term">검색어:</label>
+          <input type="text" id="wiki-term" value="세종대왕" placeholder="예: 세종대왕, 광합성, 피보나치 수" />
+        </div>
+        <div class="url-display" id="wiki-url">
+          <span class="method">GET</span><span class="url-text">https://ko.wikipedia.org/api/rest_v1/page/summary/세종대왕</span>
+        </div>
+        <button class="btn-send" onclick="callWiki()">요청 보내기</button>
+        <div class="output">
+          <div class="output-status" id="wiki-status">대기 중…</div>
+          <div class="output-tabs">
+            <button class="active" data-tab="rendered" data-target="wiki">📖 보기 좋게</button>
+            <button data-tab="raw" data-target="wiki">📜 원본 응답</button>
+          </div>
+          <div class="output-rendered empty" id="wiki-rendered">검색어를 입력하고 요청을 보내보세요.</div>
+          <pre class="output-raw" id="wiki-raw"></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Part 15: Practice 10 - QR code -->
+  <section class="part" id="part15">
+    <div class="part-header">
+      <div class="part-number">15</div>
+      <div class="part-title-group">
+        <h2 class="part-title">실습 10 — QR 코드 만들기</h2>
+        <p class="part-subtitle">응답이 JSON이 아니라 '이미지 그 자체'인 API.</p>
+      </div>
+    </div>
+
+    <div class="practice" id="practice-qr">
+      <div class="practice-head">
+        <span class="practice-tag">실습 10</span>
+        <h4>🔳 qrserver.com — QR 코드 생성</h4>
+        <p>링크나 문구를 넣으면 QR 코드 이미지를 바로 만들어줍니다. 설문 링크·안내문·제출 폼을 칠판에 띄울 때 유용해요.</p>
+      </div>
+      <div class="practice-body">
+        <div class="input-row">
+          <label for="qr-text">내용:</label>
+          <input type="text" id="qr-text" value="https://3-5homepage.vercel.app" placeholder="링크 또는 안내 문구" />
+        </div>
+        <div class="url-display" id="qr-url">
+          <span class="method">GET</span><span class="url-text">https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=...</span>
+        </div>
+        <button class="btn-send" onclick="callQr()">QR 만들기</button>
+        <div class="output">
+          <div class="output-status" id="qr-status">대기 중…</div>
+          <div class="output-rendered empty" id="qr-rendered">내용을 입력하고 버튼을 눌러보세요.</div>
+        </div>
+        <div class="note note-info" style="margin-top: 12px;">
+          <strong>💡 포인트:</strong> 이 API는 JSON 대신 <strong>이미지 파일 자체</strong>를 돌려줘요. 그래서 만들어진 주소를 <code class="inline">&lt;img src="…"&gt;</code> 에 바로 쓸 수 있어요. (그래서 '원본 응답' 탭이 없습니다.)
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Part 16: Practice 11 - Air quality -->
+  <section class="part" id="part16">
+    <div class="part-header">
+      <div class="part-number">16</div>
+      <div class="part-title-group">
+        <h2 class="part-title">실습 11 — 우리 동네 미세먼지</h2>
+        <p class="part-subtitle">실습 4(날씨)와 같은 제공자가 주는 또 다른 데이터.</p>
+      </div>
+    </div>
+
+    <div class="practice" id="practice-air">
+      <div class="practice-head">
+        <span class="practice-tag">실습 11</span>
+        <h4>😷 open-meteo — 실시간 대기질(미세먼지)</h4>
+        <p>위도/경도를 넘기면 현재 미세먼지(PM10)·초미세먼지(PM2.5) 농도를 돌려줍니다. 체육 수업·야외 활동을 결정할 때 참고용. 키가 필요 없어요.</p>
+      </div>
+      <div class="practice-body">
+        <div class="input-row">
+          <label for="air-city">도시:</label>
+          <select id="air-city">
+            <option value="37.5665,126.9780" selected>서울</option>
+            <option value="35.1796,129.0756">부산</option>
+            <option value="35.8714,128.6014">대구</option>
+            <option value="37.4563,126.7052">인천</option>
+            <option value="33.4996,126.5312">제주</option>
+          </select>
+        </div>
+        <div class="url-display" id="air-url">
+          <span class="method">GET</span><span class="url-text">https://air-quality-api.open-meteo.com/v1/air-quality?latitude=37.5665&longitude=126.978&current=pm10,pm2_5,european_aqi</span>
+        </div>
+        <button class="btn-send" onclick="callAir()">요청 보내기</button>
+        <div class="output">
+          <div class="output-status" id="air-status">대기 중…</div>
+          <div class="output-tabs">
+            <button class="active" data-tab="rendered" data-target="air">😷 보기 좋게</button>
+            <button data-tab="raw" data-target="air">📜 원본 응답</button>
+          </div>
+          <div class="output-rendered empty" id="air-rendered">도시를 고르고 요청을 보내보세요.</div>
+          <pre class="output-raw" id="air-raw"></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Part 17: Capstone - Universal API tester -->
+  <section class="part" id="part17">
+    <div class="part-header">
+      <div class="part-number">17</div>
+      <div class="part-title-group">
+        <h2 class="part-title">종합 실습 — 내가 고른 API 직접 호출하기</h2>
+        <p class="part-subtitle">배운 걸 직접 써볼 시간. 원하는 API 주소를 넣고 호출해보세요.</p>
+      </div>
+    </div>
+
+    <div class="practice" id="practice-playground">
+      <div class="practice-head">
+        <span class="practice-tag">종합</span>
+        <h4>🧪 무엇이든 호출해보기</h4>
+        <p>API 주소(URL)를 직접 넣어 GET 요청을 보내봅니다. 필요하면 API 키 같은 헤더도 한 줄 추가할 수 있어요. public-apis에서 찾은 API를 여기서 바로 시험해보세요.</p>
+      </div>
+      <div class="practice-body">
+        <div class="input-row" style="flex-direction: column; align-items: stretch;">
+          <label for="pg-url" style="margin-bottom: 6px;">요청 주소(URL):</label>
+          <input type="text" id="pg-url" value="https://dog.ceo/api/breeds/image/random" placeholder="https://..." style="width: 100%;" />
+        </div>
+        <p style="font-size: 13px; color: var(--subtle); margin: 4px 0;">예시로 채우기:</p>
+        <div class="pg-examples">
+          <button type="button" class="pg-chip" onclick="pgFill('dog')">🐶 강아지</button>
+          <button type="button" class="pg-chip" onclick="pgFill('rate')">💱 환율</button>
+          <button type="button" class="pg-chip" onclick="pgFill('country')">🌏 국가</button>
+          <button type="button" class="pg-chip" onclick="pgFill('wiki')">📖 위키백과</button>
+        </div>
+        <div class="input-row">
+          <label for="pg-hkey">헤더(선택):</label>
+          <input type="text" id="pg-hkey" placeholder="이름 (예: x-api-key)" style="max-width: 200px;" />
+          <input type="text" id="pg-hval" placeholder="값 (예: 본인 키)" style="max-width: 220px;" />
+        </div>
+        <button class="btn-send" onclick="callPlayground()">요청 보내기</button>
+        <div class="output">
+          <div class="output-status" id="pg-status">대기 중…</div>
+          <div class="output-tabs">
+            <button class="active" data-tab="rendered" data-target="pg">👀 보기 좋게</button>
+            <button data-tab="raw" data-target="pg">📜 원본 응답</button>
+          </div>
+          <div class="output-rendered empty" id="pg-rendered">주소를 넣고 요청을 보내보세요.</div>
+          <pre class="output-raw" id="pg-raw"></pre>
+        </div>
+        <div class="note note-warning" style="margin-top: 14px;">
+          <strong>⚠️ CORS 주의:</strong> 모든 API가 브라우저 직접 호출을 허용하는 건 아니에요. <code class="inline">Failed to fetch</code> 오류가 나면 <strong>코드가 틀린 게 아니라</strong>, 그 API가 브라우저에서의 직접 호출을 막아둔 경우(CORS)가 많습니다. public-apis 목록에서 <strong>CORS: Yes</strong> 인 API를 고르면 잘 돼요.
+        </div>
+        <div class="note note-info" style="margin-top: 10px;">
+          <strong>🔑 키 주의:</strong> 여기 넣는 키는 브라우저에서 그대로 전송돼 노출될 수 있어요(실습 13의 '서비스 연결 키'). 연습용·무료 키만 넣고, 중요한 키는 넣지 마세요.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Part 18: 다음 단계 -->
+  <section class="part" id="part18">
+    <div class="part-header">
+      <div class="part-number">18</div>
       <div class="part-title-group">
         <h2 class="part-title">다음 단계 — 직접 만들어보기</h2>
         <p class="part-subtitle">Claude Code 한 줄이면 위 페이지들이 다 만들어집니다.</p>
@@ -1751,7 +1959,7 @@ response = client.messages.<span class="f">create</span>(
       <div class="note note-info" style="margin-top: 18px;">
         <strong>🎯 핵심:</strong> 선생님은 "어떤 데이터가 필요한지"만 알면 됩니다.
         그 데이터를 주는 API를 찾고, 호출 코드를 짜고, 화면에 그리는 일은 Claude Code가 합니다.
-        오늘 익힌 6개 API만 써도 학교에서 쓸 수 있는 수십 개의 도구를 만들 수 있어요.
+        오늘 익힌 API들만 써도 학교에서 쓸 수 있는 수십 개의 도구를 만들 수 있어요.
       </div>
     </div>
 
@@ -1767,9 +1975,9 @@ response = client.messages.<span class="f">create</span>(
     <div class="card">
       <h3>📚 더 많은 공개 API 찾는 곳 — <code class="inline">public-apis</code></h3>
       <p>
-        오늘 써본 6개는 빙산의 일각입니다. 전 세계 개발자들이 정리한
+        오늘 써본 API들은 빙산의 일각입니다. 전 세계 개발자들이 정리한
         <a href="https://github.com/public-apis/public-apis" target="_blank" style="color: var(--accent); font-weight: 600;">github.com/public-apis/public-apis</a>
-        에 가시면 <strong>1500개 이상의 무료 공개 API</strong>가 카테고리별(동물·책·게임·정부 데이터·교통·날씨·번역·머신러닝 …) 로 깔끔하게 정리되어 있어요.
+        에 가시면 <strong>1500개 이상의 무료 공개 API</strong>가 카테고리별(동물·책·게임·정부 데이터·교통·날씨·번역·머신러닝 …) 로 깔끔하게 정리되어 있어요. 방금 실습 17(직접 호출)에서 연습한 것처럼, 마음에 드는 API를 골라 바로 시험해볼 수 있어요.
       </p>
       <p style="margin-top: 10px;">
         각 항목에는 <strong>키 필요 여부 · HTTPS 지원 · CORS 지원 여부</strong>가 같이 표시돼서, 오늘 실습 1~6처럼 <em>"키 없이 브라우저에서 바로 호출되는 API"</em> 만 골라 쓰기도 쉽습니다.
@@ -2256,6 +2464,183 @@ response = client.messages.<span class="f">create</span>(
       sendChat();
     }
   });
+
+  // ============ 9. 위키백과 요약 ============
+  function buildWikiUrl() {
+    const term = document.getElementById('wiki-term').value.trim() || '세종대왕';
+    return 'https://ko.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(term);
+  }
+  function callWiki() {
+    const url = buildWikiUrl();
+    setUrl('wiki-url', url);
+    send({
+      statusId: 'wiki-status', rawId: 'wiki-raw', renderedId: 'wiki-rendered',
+      url,
+      render: json => {
+        if ((json.type && json.type.indexOf('not_found') !== -1) || !json.extract) {
+          setRendered('wiki-rendered', '<p>문서를 찾지 못했어요. 다른 검색어로 시도해보세요.</p>');
+          return;
+        }
+        const thumb = json.thumbnail && json.thumbnail.source;
+        const page = json.content_urls && json.content_urls.desktop && json.content_urls.desktop.page;
+        setRendered('wiki-rendered',
+          `<div class="wiki-card">
+            ${thumb ? `<img src="${thumb}" alt="${json.title}" />` : ''}
+            <div class="wiki-body">
+              <h5>${json.title}</h5>
+              ${json.description ? `<p class="wiki-desc">${json.description}</p>` : ''}
+              <p class="wiki-extract">${json.extract}</p>
+              ${page ? `<a class="wiki-link" href="${page}" target="_blank">위키백과에서 더 보기 →</a>` : ''}
+            </div>
+          </div>`);
+      }
+    });
+  }
+  document.getElementById('wiki-term').addEventListener('input', () => setUrl('wiki-url', buildWikiUrl()));
+
+  // ============ 10. QR 코드 ============
+  function buildQrUrl() {
+    const text = document.getElementById('qr-text').value.trim() || 'https://3-5homepage.vercel.app';
+    return 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data=' + encodeURIComponent(text);
+  }
+  function callQr() {
+    const url = buildQrUrl();
+    setUrl('qr-url', url);
+    setStatus('qr-status', '이미지 받는 중…');
+    const rendered = document.getElementById('qr-rendered');
+    rendered.classList.remove('empty');
+    rendered.innerHTML = 'QR 코드를 만드는 중…';
+    const img = new Image();
+    img.onload = () => {
+      setStatus('qr-status', '완료 · 이미지 응답', 'ok');
+      rendered.innerHTML =
+        `<div class="qr-card"><img src="${url}" alt="QR code" width="240" height="240" /><p class="qr-cap">📷 스마트폰 카메라로 찍어보세요</p></div>`;
+    };
+    img.onerror = () => {
+      setStatus('qr-status', '이미지를 불러오지 못했어요', 'err');
+      rendered.innerHTML = '<p style="color: var(--danger);">QR 생성 실패. 내용을 바꿔서 다시 시도해보세요.</p>';
+    };
+    img.src = url;
+  }
+  document.getElementById('qr-text').addEventListener('input', () => setUrl('qr-url', buildQrUrl()));
+
+  // ============ 11. 미세먼지(대기질) ============
+  // 한국 환경부 기준: [상한, 등급, 이모지, 색]
+  const PM25_LEVELS = [[15, '좋음', '😊', 'var(--success)'], [35, '보통', '🙂', 'var(--accent)'], [75, '나쁨', '😷', 'var(--warning)'], [Infinity, '매우 나쁨', '🤢', 'var(--danger)']];
+  const PM10_LEVELS = [[30, '좋음', '😊', 'var(--success)'], [80, '보통', '🙂', 'var(--accent)'], [150, '나쁨', '😷', 'var(--warning)'], [Infinity, '매우 나쁨', '🤢', 'var(--danger)']];
+  function gradeOf(levels, v) {
+    for (const l of levels) { if (v <= l[0]) return l; }
+    return levels[levels.length - 1];
+  }
+  function buildAirUrl() {
+    const [lat, lon] = document.getElementById('air-city').value.split(',');
+    return `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=pm10,pm2_5,european_aqi`;
+  }
+  function callAir() {
+    const url = buildAirUrl();
+    setUrl('air-url', url);
+    const cityLabel = document.getElementById('air-city').selectedOptions[0].textContent;
+    send({
+      statusId: 'air-status', rawId: 'air-raw', renderedId: 'air-rendered',
+      url,
+      render: json => {
+        const c = json.current || {};
+        const pm25 = c.pm2_5, pm10 = c.pm10;
+        if (pm25 == null && pm10 == null) {
+          setRendered('air-rendered', '<p>대기질 정보를 찾지 못했어요.</p>');
+          return;
+        }
+        const g25 = gradeOf(PM25_LEVELS, pm25);
+        const g10 = gradeOf(PM10_LEVELS, pm10);
+        setRendered('air-rendered',
+          `<div class="air-card">
+            <div class="air-title">${cityLabel} 대기질 <span style="font-size:12px; color:var(--subtle);">측정 ${c.time || ''}</span></div>
+            <div class="air-grid">
+              <div class="air-box" style="border-color:${g25[3]};">
+                <div class="air-emoji">${g25[2]}</div>
+                <div class="air-val" style="color:${g25[3]};">${pm25}<span>μg/m³</span></div>
+                <div class="air-label">초미세먼지 PM2.5</div>
+                <div class="air-badge" style="background:${g25[3]};">${g25[1]}</div>
+              </div>
+              <div class="air-box" style="border-color:${g10[3]};">
+                <div class="air-emoji">${g10[2]}</div>
+                <div class="air-val" style="color:${g10[3]};">${pm10}<span>μg/m³</span></div>
+                <div class="air-label">미세먼지 PM10</div>
+                <div class="air-badge" style="background:${g10[3]};">${g10[1]}</div>
+              </div>
+            </div>
+            <p class="air-note">한국 환경부 기준 등급으로 표시했어요.</p>
+          </div>`);
+      }
+    });
+  }
+  document.getElementById('air-city').addEventListener('change', () => setUrl('air-url', buildAirUrl()));
+
+  // ============ 종합: 범용 API 테스터 ============
+  const PG_EXAMPLES = {
+    dog: 'https://dog.ceo/api/breeds/image/random',
+    rate: 'https://api.frankfurter.app/latest?amount=100&from=USD&to=KRW',
+    country: 'https://restcountries.com/v3.1/name/korea',
+    wiki: 'https://ko.wikipedia.org/api/rest_v1/page/summary/세종대왕',
+  };
+  function pgFill(key) {
+    if (PG_EXAMPLES[key]) document.getElementById('pg-url').value = PG_EXAMPLES[key];
+  }
+  function escapeText(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  async function callPlayground() {
+    const url = document.getElementById('pg-url').value.trim();
+    if (!url) { setStatus('pg-status', '주소(URL)를 입력해주세요', 'err'); return; }
+    const hk = document.getElementById('pg-hkey').value.trim();
+    const hv = document.getElementById('pg-hval').value.trim();
+    const headers = {};
+    if (hk && hv) headers[hk] = hv;
+
+    setStatus('pg-status', '요청 중…');
+    const rendered = document.getElementById('pg-rendered');
+    rendered.classList.add('empty');
+    rendered.innerHTML = '응답을 기다리는 중…';
+    document.getElementById('pg-raw').textContent = '';
+
+    try {
+      const t0 = performance.now();
+      const res = await fetch(url, { headers });
+      const t1 = performance.now();
+      const ct = res.headers.get('content-type') || '';
+      const text = await res.text();
+      setStatus('pg-status',
+        `${res.status} ${res.statusText} · ${Math.round(t1 - t0)}ms · ${ct.split(';')[0] || '형식 모름'}`,
+        res.ok ? 'ok' : 'err');
+
+      let parsed = null;
+      try { parsed = JSON.parse(text); } catch (_) { /* JSON 아님 */ }
+      rendered.classList.remove('empty');
+
+      if (parsed !== null) {
+        setRaw('pg-raw', parsed);
+        const shape = (parsed && typeof parsed === 'object')
+          ? (Array.isArray(parsed) ? `배열 · 항목 ${parsed.length}개` : `객체 · 키 ${Object.keys(parsed).length}개`)
+          : '단일 값';
+        rendered.innerHTML =
+          `<div class="pg-result"><p>✅ JSON 응답을 받았어요 — ${shape}</p><p style="font-size:13px; color:var(--muted);">📜 '원본 응답' 탭에서 전체 데이터를 확인하세요.</p></div>`;
+      } else {
+        document.getElementById('pg-raw').textContent = text.slice(0, 5000);
+        if (ct.indexOf('image') !== -1) {
+          rendered.innerHTML = `<img src="${url}" alt="응답 이미지" style="max-width:100%; border-radius:8px;" />`;
+        } else {
+          rendered.innerHTML = `<pre style="white-space:pre-wrap; font-size:13px; color:var(--muted);">${escapeText(text.slice(0, 2000))}</pre>`;
+        }
+      }
+    } catch (e) {
+      const isCors = /Failed to fetch|NetworkError|load failed/i.test(e.message);
+      setStatus('pg-status', `오류: ${e.message}`, 'err');
+      rendered.classList.remove('empty');
+      rendered.innerHTML = isCors
+        ? `<div class="note note-warning" style="margin:0;"><strong>요청 실패 (CORS 가능성 큼)</strong><br>코드가 틀린 게 아닐 수 있어요. 이 API가 브라우저에서의 직접 호출을 막아둔 경우입니다. public-apis 목록에서 <strong>CORS: Yes</strong> 인 API로 다시 시도해보세요.</div>`
+        : `<p style="color: var(--danger);">요청 실패: ${escapeText(e.message)}</p>`;
+    }
+  }
 </script>
 
 </body>
