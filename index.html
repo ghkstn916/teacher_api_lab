@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>선생님을 위한 API 입문 & 실습</title>
-<meta name="description" content="API가 무엇인지, 어떻게 생겼는지, 그리고 브라우저에서 바로 11개의 실제 API(공공데이터 + Claude AI)를 호출해보며 익히는 교사 연수용 페이지" />
+<meta name="description" content="API가 무엇인지, 어떻게 생겼는지, 그리고 브라우저에서 바로 5개의 실제 API(공공데이터 + Claude AI)를 호출해보며 익히는 교사 연수용 페이지" />
 <style>
   :root {
     --bg: #f8fafc;
@@ -926,34 +926,6 @@
     border-color: #fca5a5;
   }
 
-  /* 실습 9 — 위키백과 */
-  .wiki-card { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
-  .wiki-card > img { width: 130px; height: 130px; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); flex-shrink: 0; }
-  .wiki-body { flex: 1; min-width: 220px; }
-  .wiki-body h5 { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
-  .wiki-desc { font-size: 13px; color: var(--subtle); margin-bottom: 10px; }
-  .wiki-extract { font-size: 14px; color: var(--muted); line-height: 1.7; }
-  .wiki-link { display: inline-block; margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--accent); text-decoration: none; }
-  .wiki-link:hover { text-decoration: underline; }
-
-  /* 실습 10 — QR */
-  .qr-card { text-align: center; }
-  .qr-card img { border-radius: 10px; border: 1px solid var(--border); background: #fff; }
-  .qr-cap { font-size: 13px; color: var(--subtle); margin-top: 10px; }
-
-  /* 실습 11 — 미세먼지 */
-  .air-card { width: 100%; }
-  .air-title { font-weight: 700; color: var(--text); margin-bottom: 14px; }
-  .air-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .air-box { border: 2px solid var(--border); border-radius: 14px; padding: 18px 12px; text-align: center; background: var(--surface); }
-  .air-emoji { font-size: 32px; line-height: 1; }
-  .air-val { font-size: clamp(22px, 7vw, 30px); font-weight: 800; margin: 8px 0 2px; white-space: nowrap; }
-  .air-val span { font-size: 13px; font-weight: 600; color: var(--subtle); margin-left: 3px; }
-  .air-label { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
-  .air-badge { display: inline-block; padding: 3px 14px; border-radius: 999px; color: #fff; font-size: 13px; font-weight: 700; }
-  .air-note { font-size: 12px; color: var(--subtle); margin-top: 12px; text-align: center; }
-  @media (max-width: 420px) { .air-grid { grid-template-columns: 1fr; } }
-
   /* 종합 실습 — 범용 테스터 */
   .pg-examples { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 4px 0 12px; }
   .pg-chip { padding: 5px 12px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; font-size: 13px; color: var(--muted); cursor: pointer; font-family: inherit; }
@@ -989,20 +961,14 @@
     <a href="#part2">2. 요청과 응답</a>
     <a href="#part3">3. 키의 두 종류</a>
     <a href="#part4">4. 강아지 사진</a>
-    <a href="#part5">5. 이름→나이</a>
-    <a href="#part6">6. 공휴일</a>
-    <a href="#part7">7. 날씨</a>
-    <a href="#part8">8. 환율</a>
-    <a href="#part9">9. 국가 정보</a>
-    <a href="#part10">10. AI API 개념</a>
-    <a href="#part11">11. 수업 활용</a>
-    <a href="#part12">12. 급식 (데이터 키)</a>
-    <a href="#part13">13. Claude 챗봇 (서비스 키)</a>
-    <a href="#part14">14. 백과사전</a>
-    <a href="#part15">15. QR 코드</a>
-    <a href="#part16">16. 미세먼지</a>
-    <a href="#part17">17. 직접 호출</a>
-    <a href="#part18">18. 다음 단계</a>
+    <a href="#part5">5. 공휴일</a>
+    <a href="#part6">6. 날씨</a>
+    <a href="#part7">7. AI API 개념</a>
+    <a href="#part8">8. 수업 활용</a>
+    <a href="#part9">9. 급식 (데이터 키)</a>
+    <a href="#part10">10. Claude 챗봇 (서비스 키)</a>
+    <a href="#part11">11. 직접 호출</a>
+    <a href="#part12">12. 다음 단계</a>
   </nav>
 
   <!-- Part 1: API란? -->
@@ -1072,7 +1038,7 @@
           <h4>📤 요청(Request)에 들어가는 것</h4>
           <dl>
             <dt>URL</dt>
-            <dd>"어디로 부탁할까?" 주소.<br>예) <code class="inline">https://api.agify.io</code></dd>
+            <dd>"어디로 부탁할까?" 주소.<br>예) <code class="inline">https://dog.ceo/api</code></dd>
             <dt>Method</dt>
             <dd>"무엇을 할까?" 동사.<br><code class="inline">GET</code>(읽기), <code class="inline">POST</code>(쓰기)가 99%.</dd>
             <dt>Query (?key=value)</dt>
@@ -1127,30 +1093,30 @@
         헷갈리기 쉬워서 먼저 정리하고 갈게요. <strong>API</strong> 는 "프로그램끼리 데이터를 주고받는 <strong>약속</strong>" — 어디로 부탁할지(URL), 어떻게 부탁할지(GET/POST), 어떻게 받을지(JSON) 가 정해진 거예요. <strong>API 키</strong> 는 거기에 종종 따라붙는 "<strong>신원 확인 수단</strong>" 일 뿐, 두 개념은 <strong>별개</strong>입니다.
       </p>
       <p>
-        그래서 <strong>키 없는 API 도 잔뜩 있어요.</strong> 우리가 곧 해볼 <strong>실습 1~6</strong>(강아지·이름→나이·공휴일·날씨·환율·국가 정보) 은 모두 키 없이 누구나 호출하는 <strong>공개(Public) API</strong> 입니다. URL 하나만 부르면 바로 JSON 이 돌아와요. (대신 IP 기준 호출 횟수 제한은 있습니다.)
+        그래서 <strong>키 없는 API 도 잔뜩 있어요.</strong> 우리가 곧 해볼 <strong>실습 1~3</strong>(강아지·공휴일·날씨) 은 모두 키 없이 누구나 호출하는 <strong>공개(Public) API</strong> 입니다. URL 하나만 부르면 바로 JSON 이 돌아와요. (대신 IP 기준 호출 횟수 제한은 있습니다.)
       </p>
       <div class="analogy" style="margin-top: 16px;">
         <div class="analogy-card">
           <div class="icon">🌐</div>
-          <h4>공개 API (실습 1~6)</h4>
+          <h4>공개 API (실습 1~3)</h4>
           <div class="map">키 없음 · 그냥 호출</div>
           <p>"이 자료는 누구나 자유롭게 가져가세요." 가장 친절한 형태의 API. 학생들에게 처음 보여주기 좋아요.</p>
         </div>
         <div class="analogy-card">
           <div class="icon">📊</div>
-          <h4>데이터 키 (실습 7)</h4>
+          <h4>데이터 키 (실습 4)</h4>
           <div class="map">키 필요 · 무료</div>
           <p>NEIS·공공데이터포털 같은 곳. "누가 얼마나 부르는지" 추적하려고 키를 받아요. 무료지만 한도가 있어요.</p>
         </div>
         <div class="analogy-card">
           <div class="icon">🤖</div>
-          <h4>서비스 키 (실습 8)</h4>
+          <h4>서비스 키 (실습 5)</h4>
           <div class="map">키 필요 · 유료</div>
           <p>Claude·OpenAI 같은 AI · 결제 서비스. 키 = 결제 수단. 노출되면 본인 카드로 결제됩니다.</p>
         </div>
       </div>
       <p style="margin-top: 14px; font-size: 14px; color: var(--muted);">
-        👉 이 페이지의 흐름도 그래서 <strong>"키 없는 공개 API → 키 있는 API"</strong> 순서로 짜여 있어요. 일단 실습 1~6 에서 <em>"API 호출이 결국 URL 하나로 JSON 받는 일"</em> 이라는 감을 잡고, 그 다음 키를 다루러 갑니다. (뒤의 실습 9~11도 모두 키가 필요 없는 공개 API예요.)
+        👉 이 페이지의 흐름도 그래서 <strong>"키 없는 공개 API → 키 있는 API"</strong> 순서로 짜여 있어요. 일단 실습 1~3 에서 <em>"API 호출이 결국 URL 하나로 JSON 받는 일"</em> 이라는 감을 잡고, 그 다음 키를 다루러 갑니다.
       </p>
     </div>
 
@@ -1227,8 +1193,8 @@
 
     <div class="note note-info">
       <strong>오늘은 두 종류 모두 직접 써봅니다.</strong><br>
-      <strong>실습 7 — 급식식단표</strong>(NEIS) → ① 데이터 연결 키 사용<br>
-      <strong>실습 8 — Claude 챗봇</strong> → ② 서비스 연결 키 사용<br>
+      <strong>실습 4 — 급식식단표</strong>(NEIS) → ① 데이터 연결 키 사용<br>
+      <strong>실습 5 — Claude 챗봇</strong> → ② 서비스 연결 키 사용<br>
       같은 "API 키"라는 이름으로 묶이지만, 다루는 무게가 어떻게 다른지 직접 체감해보세요.
     </div>
   </section>
@@ -1272,61 +1238,20 @@
     </div>
   </section>
 
-  <!-- Part 5: Practice 2 - Agify -->
+
+  <!-- Part 5: Practice 2 - Holidays -->
   <section class="part" id="part5">
     <div class="part-header">
       <div class="part-number">5</div>
       <div class="part-title-group">
-        <h2 class="part-title">실습 2 — 이름으로 나이 추측하기</h2>
-        <p class="part-subtitle">입력값(파라미터)을 URL에 끼워넣어 보냅니다.</p>
-      </div>
-    </div>
-
-    <div class="practice" id="practice-age">
-      <div class="practice-head">
-        <span class="practice-tag">실습 2</span>
-        <h4>🎂 agify.io — 이름으로 평균 나이 추정</h4>
-        <p>전 세계 인구통계를 기반으로 그 이름을 가진 사람의 평균 나이를 알려줍니다. 영어 이름이 더 정확합니다.</p>
-      </div>
-      <div class="practice-body">
-        <div class="input-row">
-          <label for="age-name">이름:</label>
-          <input type="text" id="age-name" value="michael" placeholder="예: michael, jisoo, hyehwa" />
-        </div>
-        <div class="url-display" id="age-url">
-          <span class="method">GET</span><span class="url-text">https://api.agify.io/?name=michael</span>
-        </div>
-        <button class="btn-send" onclick="callAge()">요청 보내기</button>
-        <div class="output">
-          <div class="output-status" id="age-status">대기 중…</div>
-          <div class="output-tabs">
-            <button class="active" data-tab="rendered" data-target="age">📊 보기 좋게</button>
-            <button data-tab="raw" data-target="age">📜 원본 응답</button>
-          </div>
-          <div class="output-rendered empty" id="age-rendered">이름을 바꿔가며 눌러보세요.</div>
-          <pre class="output-raw" id="age-raw"></pre>
-        </div>
-      </div>
-    </div>
-
-    <div class="note">
-      <strong>⚠ 무료 한도:</strong> agify.io는 IP당 하루 100회 무료입니다. 학생 30명이 동시에 누르면 금방 한도가 차요. 수업에선 시연 위주로!
-    </div>
-  </section>
-
-  <!-- Part 6: Practice 3 - Holidays -->
-  <section class="part" id="part6">
-    <div class="part-header">
-      <div class="part-number">6</div>
-      <div class="part-title-group">
-        <h2 class="part-title">실습 3 — 한국 공휴일 가져오기</h2>
+        <h2 class="part-title">실습 2 — 한국 공휴일 가져오기</h2>
         <p class="part-subtitle">배열(여러 항목 묶음)이 응답으로 오는 경우.</p>
       </div>
     </div>
 
     <div class="practice" id="practice-holiday">
       <div class="practice-head">
-        <span class="practice-tag">실습 3</span>
+        <span class="practice-tag">실습 2</span>
         <h4>📅 date.nager.at — 공휴일 데이터</h4>
         <p>연도와 국가 코드를 넣으면 그 해 공휴일 전체 목록을 반환합니다. 학사일정 자동화에 쓸 수 있어요.</p>
       </div>
@@ -1360,19 +1285,19 @@
     </div>
   </section>
 
-  <!-- Part 7: Practice 4 - Weather -->
-  <section class="part" id="part7">
+  <!-- Part 6: Practice 3 - Weather -->
+  <section class="part" id="part6">
     <div class="part-header">
-      <div class="part-number">7</div>
+      <div class="part-number">6</div>
       <div class="part-title-group">
-        <h2 class="part-title">실습 4 — 도시 날씨 조회</h2>
+        <h2 class="part-title">실습 3 — 도시 날씨 조회</h2>
         <p class="part-subtitle">위도·경도라는 두 개의 파라미터를 함께 보냅니다.</p>
       </div>
     </div>
 
     <div class="practice" id="practice-weather">
       <div class="practice-head">
-        <span class="practice-tag">실습 4</span>
+        <span class="practice-tag">실습 3</span>
         <h4>🌤 open-meteo.com — 실시간 날씨</h4>
         <p>위도/경도를 넘기면 현재 기온·습도·날씨 코드를 돌려줍니다. API 키가 필요 없는 보기 드문 날씨 API.</p>
       </div>
@@ -1406,100 +1331,12 @@
     </div>
   </section>
 
-  <!-- Part 8: Practice 5 - Exchange rate -->
-  <section class="part" id="part8">
+
+
+  <!-- Part 7: AI API -->
+  <section class="part" id="part7">
     <div class="part-header">
-      <div class="part-number">8</div>
-      <div class="part-title-group">
-        <h2 class="part-title">실습 5 — 환율 변환기</h2>
-        <p class="part-subtitle">유럽중앙은행 공식 데이터를 쓰는 무료 API.</p>
-      </div>
-    </div>
-
-    <div class="practice" id="practice-rate">
-      <div class="practice-head">
-        <span class="practice-tag">실습 5</span>
-        <h4>💱 frankfurter.app — 환율 정보</h4>
-        <p>"미국 달러 100을 한국 원으로 바꾸면?" 같은 계산을 한 번의 호출로 해결합니다.</p>
-      </div>
-      <div class="practice-body">
-        <div class="input-row">
-          <label for="rate-amount">금액:</label>
-          <input type="number" id="rate-amount" value="100" min="0" style="max-width: 140px;" />
-          <select id="rate-from" style="max-width: 130px;">
-            <option value="USD" selected>USD 미국 달러</option>
-            <option value="EUR">EUR 유로</option>
-            <option value="JPY">JPY 일본 엔</option>
-            <option value="CNY">CNY 중국 위안</option>
-            <option value="GBP">GBP 영국 파운드</option>
-          </select>
-          <label>→</label>
-          <select id="rate-to" style="max-width: 130px;">
-            <option value="KRW" selected>KRW 한국 원</option>
-            <option value="USD">USD 미국 달러</option>
-            <option value="EUR">EUR 유로</option>
-            <option value="JPY">JPY 일본 엔</option>
-          </select>
-        </div>
-        <div class="url-display" id="rate-url">
-          <span class="method">GET</span><span class="url-text">https://api.frankfurter.app/latest?amount=100&from=USD&to=KRW</span>
-        </div>
-        <button class="btn-send" onclick="callRate()">요청 보내기</button>
-        <div class="output">
-          <div class="output-status" id="rate-status">대기 중…</div>
-          <div class="output-tabs">
-            <button class="active" data-tab="rendered" data-target="rate">💰 보기 좋게</button>
-            <button data-tab="raw" data-target="rate">📜 원본 응답</button>
-          </div>
-          <div class="output-rendered empty" id="rate-rendered">금액과 통화를 골라보세요.</div>
-          <pre class="output-raw" id="rate-raw"></pre>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Part 9: Practice 6 - Country -->
-  <section class="part" id="part9">
-    <div class="part-header">
-      <div class="part-number">9</div>
-      <div class="part-title-group">
-        <h2 class="part-title">실습 6 — 국가 정보 + 국기</h2>
-        <p class="part-subtitle">JSON 안에 이미지 URL이 들어 있을 때.</p>
-      </div>
-    </div>
-
-    <div class="practice" id="practice-country">
-      <div class="practice-head">
-        <span class="practice-tag">실습 6</span>
-        <h4>🌏 restcountries.com — 전 세계 국가 정보</h4>
-        <p>국가 이름을 영어로 입력하면 수도·인구·언어·국기 이미지 URL까지 돌려줍니다. 사회·지리 수업 보조용으로 좋아요.</p>
-      </div>
-      <div class="practice-body">
-        <div class="input-row">
-          <label for="country-name">국가 이름(영문):</label>
-          <input type="text" id="country-name" value="korea" placeholder="예: korea, japan, france" />
-        </div>
-        <div class="url-display" id="country-url">
-          <span class="method">GET</span><span class="url-text">https://restcountries.com/v3.1/name/korea</span>
-        </div>
-        <button class="btn-send" onclick="callCountry()">요청 보내기</button>
-        <div class="output">
-          <div class="output-status" id="country-status">대기 중…</div>
-          <div class="output-tabs">
-            <button class="active" data-tab="rendered" data-target="country">🏳 보기 좋게</button>
-            <button data-tab="raw" data-target="country">📜 원본 응답</button>
-          </div>
-          <div class="output-rendered empty" id="country-rendered">국가 이름을 영문으로 입력해보세요.</div>
-          <pre class="output-raw" id="country-raw"></pre>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Part 10: AI API -->
-  <section class="part" id="part10">
-    <div class="part-header">
-      <div class="part-number">10</div>
+      <div class="part-number">7</div>
       <div class="part-title-group">
         <h2 class="part-title">AI API 맛보기 — Claude API는 어떻게 부르나?</h2>
         <p class="part-subtitle">우리가 쓰는 ChatGPT·Claude도 결국 똑같은 API 호출입니다.</p>
@@ -1568,40 +1405,30 @@ response = client.messages.<span class="f">create</span>(
     </div>
   </section>
 
-  <!-- Part 11: 수업 활용 -->
-  <section class="part" id="part11">
+  <!-- Part 8: 수업 활용 -->
+  <section class="part" id="part8">
     <div class="part-header">
-      <div class="part-number">11</div>
+      <div class="part-number">8</div>
       <div class="part-title-group">
         <h2 class="part-title">수업·업무에 어떻게 쓸 수 있을까?</h2>
-        <p class="part-subtitle">바로 따라 해볼 수 있는 6가지 아이디어.</p>
+        <p class="part-subtitle">바로 따라 해볼 수 있는 4가지 아이디어.</p>
       </div>
     </div>
 
     <div class="idea-grid">
       <div class="idea-card">
         <h5>📅 학사일정 자동 생성</h5>
-        <p>위 실습 3을 응용해 매년 자동으로 공휴일이 빠진 수업 일자만 캘린더에 채우는 페이지.</p>
+        <p>위 실습 2를 응용해 매년 자동으로 공휴일이 빠진 수업 일자만 캘린더에 채우는 페이지.</p>
         <div class="prompt">"올해와 내년 한국 공휴일 빼고 평일만 보여주는 페이지 만들어줘"</div>
       </div>
       <div class="idea-card">
-        <h5>🌍 사회·지리 보조 자료</h5>
-        <p>실습 6을 활용해 학생이 국가명을 치면 수도·인구·언어·국기가 바로 뜨는 학습지 사이트.</p>
-        <div class="prompt">"학생이 국가명을 치면 국기와 수도, 인구를 보여주는 학습 페이지 만들어줘"</div>
-      </div>
-      <div class="idea-card">
         <h5>🌤 날씨 알림 슬라이드</h5>
-        <p>실습 4를 매일 8시에 자동 갱신해 교실 화면에 띄우기. 체험학습 일정 잡을 때도 쓸모.</p>
+        <p>실습 3을 매일 8시에 자동 갱신해 교실 화면에 띄우기. 체험학습 일정 잡을 때도 쓸모.</p>
         <div class="prompt">"오전 8시마다 서울 날씨를 보여주는 큰 화면용 페이지 만들어줘"</div>
       </div>
       <div class="idea-card">
-        <h5>💱 글로벌 경제 실습</h5>
-        <p>실습 5를 활용해 "1만 원으로 살 수 있는 외국 햄버거 개수"를 자동 계산하는 학습지.</p>
-        <div class="prompt">"입력한 한국 원화로 미국·일본·유럽에서 빅맥 몇 개 살 수 있는지 보여주는 페이지"</div>
-      </div>
-      <div class="idea-card">
         <h5>🤖 AI 글쓰기 도우미</h5>
-        <p>실습 8의 Claude API로 학생 작문 첨삭 페이지. 단, 키는 학교 서버에서만 사용.</p>
+        <p>실습 5의 Claude API로 학생 작문 첨삭 페이지. 단, 키는 학교 서버에서만 사용.</p>
         <div class="prompt">"학생이 글을 붙여넣으면 맞춤법과 논리 흐름만 짧게 코멘트해주는 페이지"</div>
       </div>
       <div class="idea-card">
@@ -1612,12 +1439,12 @@ response = client.messages.<span class="f">create</span>(
     </div>
   </section>
 
-  <!-- Part 12: 실습 7 - NEIS 급식식단표 -->
-  <section class="part" id="part12">
+  <!-- Part 9: 실습 4 - NEIS 급식식단표 -->
+  <section class="part" id="part9">
     <div class="part-header">
-      <div class="part-number">12</div>
+      <div class="part-number">9</div>
       <div class="part-title-group">
-        <h2 class="part-title">실습 7 — 우리 학교 급식식단 (NEIS)</h2>
+        <h2 class="part-title">실습 4 — 우리 학교 급식식단 (NEIS)</h2>
         <p class="part-subtitle">① 데이터 연결 키를 써봅니다. 무료, 노출돼도 비교적 안전.</p>
       </div>
     </div>
@@ -1640,7 +1467,7 @@ response = client.messages.<span class="f">create</span>(
 
     <div class="practice" id="practice-meal">
       <div class="practice-head">
-        <span class="practice-tag">실습 7 · 데이터 키</span>
+        <span class="practice-tag">실습 4 · 데이터 키</span>
         <h4>🍱 NEIS — 혜화여고 월별 급식식단표</h4>
         <p>기본은 이번 달 전체. 날짜를 바꾸면 원하는 기간의 중식 메뉴·칼로리·알러지 정보를 한 번에 가져옵니다.</p>
       </div>
@@ -1679,12 +1506,12 @@ response = client.messages.<span class="f">create</span>(
     </div>
   </section>
 
-  <!-- Part 13: 실습 8 - Claude 챗봇 -->
-  <section class="part" id="part13">
+  <!-- Part 10: 실습 5 - Claude 챗봇 -->
+  <section class="part" id="part10">
     <div class="part-header">
-      <div class="part-number">13</div>
+      <div class="part-number">10</div>
       <div class="part-title-group">
-        <h2 class="part-title">실습 8 — Claude 챗봇 직접 만들기</h2>
+        <h2 class="part-title">실습 5 — Claude 챗봇 직접 만들기</h2>
         <p class="part-subtitle">② 서비스 연결 키를 써봅니다. 유료, 노출되면 카드 도용.</p>
       </div>
     </div>
@@ -1710,7 +1537,7 @@ response = client.messages.<span class="f">create</span>(
 
     <div class="practice" id="practice-chat">
       <div class="practice-head">
-        <span class="practice-tag">실습 8 · 서비스 키</span>
+        <span class="practice-tag">실습 5 · 서비스 키</span>
         <h4>🤖 Claude 챗봇</h4>
         <p>키 입력 → 모델 선택 → 시스템 프롬프트(역할) 정하기 → 대화 시작.</p>
       </div>
@@ -1759,133 +1586,18 @@ response = client.messages.<span class="f">create</span>(
       <ul class="bullets">
         <li>시스템 프롬프트를 "<em>고1 영어 선생님</em>"으로 바꾸면 영어 첨삭 봇이 됩니다.</li>
         <li>"<em>학생 글쓰기에 짧게 코멘트만 다는 봇</em>"으로 바꾸면 작문 평가 도우미가 됩니다.</li>
-        <li>실습 7의 급식 데이터와 연결하면 "<em>오늘 점심 뭐야?</em>"라고 물어보는 봇도 만들 수 있어요 (Claude Code로).</li>
+        <li>실습 4의 급식 데이터와 연결하면 "<em>오늘 점심 뭐야?</em>"라고 물어보는 봇도 만들 수 있어요 (Claude Code로).</li>
       </ul>
     </div>
   </section>
 
-  <!-- Part 14: Practice 9 - Wikipedia -->
-  <section class="part" id="part14">
+
+
+
+  <!-- Part 11: Capstone - Universal API tester -->
+  <section class="part" id="part11">
     <div class="part-header">
-      <div class="part-number">14</div>
-      <div class="part-title-group">
-        <h2 class="part-title">실습 9 — 백과사전 요약 가져오기</h2>
-        <p class="part-subtitle">검색어를 URL 경로(주소) 안에 넣는 방식. 수업 자료 만들 때 바로 씁니다.</p>
-      </div>
-    </div>
-
-    <div class="practice" id="practice-wiki">
-      <div class="practice-head">
-        <span class="practice-tag">실습 9</span>
-        <h4>📖 위키백과 — 문서 요약</h4>
-        <p>낱말·인물·장소를 입력하면 한국어 위키백과의 요약문과 대표 이미지를 돌려줍니다. 키가 필요 없어요.</p>
-      </div>
-      <div class="practice-body">
-        <div class="input-row">
-          <label for="wiki-term">검색어:</label>
-          <input type="text" id="wiki-term" value="세종대왕" placeholder="예: 세종대왕, 광합성, 피보나치 수" />
-        </div>
-        <div class="url-display" id="wiki-url">
-          <span class="method">GET</span><span class="url-text">https://ko.wikipedia.org/api/rest_v1/page/summary/세종대왕</span>
-        </div>
-        <button class="btn-send" onclick="callWiki()">요청 보내기</button>
-        <div class="output">
-          <div class="output-status" id="wiki-status">대기 중…</div>
-          <div class="output-tabs">
-            <button class="active" data-tab="rendered" data-target="wiki">📖 보기 좋게</button>
-            <button data-tab="raw" data-target="wiki">📜 원본 응답</button>
-          </div>
-          <div class="output-rendered empty" id="wiki-rendered">검색어를 입력하고 요청을 보내보세요.</div>
-          <pre class="output-raw" id="wiki-raw"></pre>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Part 15: Practice 10 - QR code -->
-  <section class="part" id="part15">
-    <div class="part-header">
-      <div class="part-number">15</div>
-      <div class="part-title-group">
-        <h2 class="part-title">실습 10 — QR 코드 만들기</h2>
-        <p class="part-subtitle">응답이 JSON이 아니라 '이미지 그 자체'인 API.</p>
-      </div>
-    </div>
-
-    <div class="practice" id="practice-qr">
-      <div class="practice-head">
-        <span class="practice-tag">실습 10</span>
-        <h4>🔳 qrserver.com — QR 코드 생성</h4>
-        <p>링크나 문구를 넣으면 QR 코드 이미지를 바로 만들어줍니다. 설문 링크·안내문·제출 폼을 칠판에 띄울 때 유용해요.</p>
-      </div>
-      <div class="practice-body">
-        <div class="input-row">
-          <label for="qr-text">내용:</label>
-          <input type="text" id="qr-text" value="https://3-5homepage.vercel.app" placeholder="링크 또는 안내 문구" />
-        </div>
-        <div class="url-display" id="qr-url">
-          <span class="method">GET</span><span class="url-text">https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=...</span>
-        </div>
-        <button class="btn-send" onclick="callQr()">QR 만들기</button>
-        <div class="output">
-          <div class="output-status" id="qr-status">대기 중…</div>
-          <div class="output-rendered empty" id="qr-rendered">내용을 입력하고 버튼을 눌러보세요.</div>
-        </div>
-        <div class="note note-info" style="margin-top: 12px;">
-          <strong>💡 포인트:</strong> 이 API는 JSON 대신 <strong>이미지 파일 자체</strong>를 돌려줘요. 그래서 만들어진 주소를 <code class="inline">&lt;img src="…"&gt;</code> 에 바로 쓸 수 있어요. (그래서 '원본 응답' 탭이 없습니다.)
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Part 16: Practice 11 - Air quality -->
-  <section class="part" id="part16">
-    <div class="part-header">
-      <div class="part-number">16</div>
-      <div class="part-title-group">
-        <h2 class="part-title">실습 11 — 우리 동네 미세먼지</h2>
-        <p class="part-subtitle">실습 4(날씨)와 같은 제공자가 주는 또 다른 데이터.</p>
-      </div>
-    </div>
-
-    <div class="practice" id="practice-air">
-      <div class="practice-head">
-        <span class="practice-tag">실습 11</span>
-        <h4>😷 open-meteo — 실시간 대기질(미세먼지)</h4>
-        <p>위도/경도를 넘기면 현재 미세먼지(PM10)·초미세먼지(PM2.5) 농도를 돌려줍니다. 체육 수업·야외 활동을 결정할 때 참고용. 키가 필요 없어요.</p>
-      </div>
-      <div class="practice-body">
-        <div class="input-row">
-          <label for="air-city">도시:</label>
-          <select id="air-city">
-            <option value="37.5665,126.9780" selected>서울</option>
-            <option value="35.1796,129.0756">부산</option>
-            <option value="35.8714,128.6014">대구</option>
-            <option value="37.4563,126.7052">인천</option>
-            <option value="33.4996,126.5312">제주</option>
-          </select>
-        </div>
-        <div class="url-display" id="air-url">
-          <span class="method">GET</span><span class="url-text">https://air-quality-api.open-meteo.com/v1/air-quality?latitude=37.5665&longitude=126.978&current=pm10,pm2_5,european_aqi</span>
-        </div>
-        <button class="btn-send" onclick="callAir()">요청 보내기</button>
-        <div class="output">
-          <div class="output-status" id="air-status">대기 중…</div>
-          <div class="output-tabs">
-            <button class="active" data-tab="rendered" data-target="air">😷 보기 좋게</button>
-            <button data-tab="raw" data-target="air">📜 원본 응답</button>
-          </div>
-          <div class="output-rendered empty" id="air-rendered">도시를 고르고 요청을 보내보세요.</div>
-          <pre class="output-raw" id="air-raw"></pre>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Part 17: Capstone - Universal API tester -->
-  <section class="part" id="part17">
-    <div class="part-header">
-      <div class="part-number">17</div>
+      <div class="part-number">11</div>
       <div class="part-title-group">
         <h2 class="part-title">종합 실습 — 내가 고른 API 직접 호출하기</h2>
         <p class="part-subtitle">배운 걸 직접 써볼 시간. 원하는 API 주소를 넣고 호출해보세요.</p>
@@ -1906,9 +1618,8 @@ response = client.messages.<span class="f">create</span>(
         <p style="font-size: 13px; color: var(--subtle); margin: 4px 0;">예시로 채우기:</p>
         <div class="pg-examples">
           <button type="button" class="pg-chip" onclick="pgFill('dog')">🐶 강아지</button>
-          <button type="button" class="pg-chip" onclick="pgFill('rate')">💱 환율</button>
-          <button type="button" class="pg-chip" onclick="pgFill('country')">🌏 국가</button>
-          <button type="button" class="pg-chip" onclick="pgFill('wiki')">📖 위키백과</button>
+          <button type="button" class="pg-chip" onclick="pgFill('holiday')">📅 공휴일</button>
+          <button type="button" class="pg-chip" onclick="pgFill('weather')">🌤 날씨</button>
         </div>
         <div class="input-row" style="flex-direction: column; align-items: stretch;">
           <label for="pg-hkey" style="margin-bottom: 6px;">헤더 추가 (선택):</label>
@@ -1929,16 +1640,16 @@ response = client.messages.<span class="f">create</span>(
           <strong>⚠️ CORS 주의:</strong> 모든 API가 브라우저 직접 호출을 허용하는 건 아니에요. <code class="inline">Failed to fetch</code> 오류가 나면 <strong>코드가 틀린 게 아니라</strong>, 그 API가 브라우저에서의 직접 호출을 막아둔 경우(CORS)가 많습니다. public-apis 목록에서 <strong>CORS: Yes</strong> 인 API를 고르면 잘 돼요.
         </div>
         <div class="note note-info" style="margin-top: 10px;">
-          <strong>🔑 키 주의:</strong> 여기 넣는 키는 브라우저에서 그대로 전송돼 노출될 수 있어요(실습 8의 '서비스 연결 키'). 연습용·무료 키만 넣고, 중요한 키는 넣지 마세요.
+          <strong>🔑 키 주의:</strong> 여기 넣는 키는 브라우저에서 그대로 전송돼 노출될 수 있어요(실습 5의 '서비스 연결 키'). 연습용·무료 키만 넣고, 중요한 키는 넣지 마세요.
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Part 18: 다음 단계 -->
-  <section class="part" id="part18">
+  <!-- Part 12: 다음 단계 -->
+  <section class="part" id="part12">
     <div class="part-header">
-      <div class="part-number">18</div>
+      <div class="part-number">12</div>
       <div class="part-title-group">
         <h2 class="part-title">다음 단계 — 직접 만들어보기</h2>
         <p class="part-subtitle">Claude Code 한 줄이면 위 페이지들이 다 만들어집니다.</p>
@@ -2112,33 +1823,7 @@ response = client.messages.<span class="f">create</span>(
     });
   }
 
-  // ============ 2. Agify ============
-  function callAge() {
-    const name = document.getElementById('age-name').value.trim() || 'michael';
-    const url = `https://api.agify.io/?name=${encodeURIComponent(name)}`;
-    setUrl('age-url', url);
-    send({
-      statusId: 'age-status', rawId: 'age-raw', renderedId: 'age-rendered',
-      url,
-      render: json => {
-        const age = json.age ?? '?';
-        const count = (json.count ?? 0).toLocaleString();
-        setRendered('age-rendered',
-          `<div class="age-result">
-            <div class="big">${age}<span style="font-size:18px; color:var(--muted);">세</span></div>
-            <div>
-              <div style="font-weight:700; color:var(--text);">"${json.name}" 평균 추정 나이</div>
-              <div class="meta">표본 ${count}명 기준 (전 세계 인구 통계)</div>
-            </div>
-          </div>`);
-      }
-    });
-  }
-  document.getElementById('age-name').addEventListener('input', e => {
-    setUrl('age-url', `https://api.agify.io/?name=${encodeURIComponent(e.target.value || '')}`);
-  });
-
-  // ============ 3. Holiday ============
+  // ============ 2. Holiday ============
   function buildHolidayUrl() {
     const year = document.getElementById('holiday-year').value || 2026;
     const country = document.getElementById('holiday-country').value;
@@ -2168,7 +1853,7 @@ response = client.messages.<span class="f">create</span>(
   ['holiday-year', 'holiday-country'].forEach(id =>
     document.getElementById(id).addEventListener('input', () => setUrl('holiday-url', buildHolidayUrl())));
 
-  // ============ 4. Weather ============
+  // ============ 3. Weather ============
   const WEATHER_CODE_MAP = {
     0: ['☀️', '맑음'],
     1: ['🌤', '대체로 맑음'],
@@ -2208,78 +1893,7 @@ response = client.messages.<span class="f">create</span>(
   }
   document.getElementById('weather-city').addEventListener('change', () => setUrl('weather-url', buildWeatherUrl()));
 
-  // ============ 5. Exchange rate ============
-  function buildRateUrl() {
-    const amount = document.getElementById('rate-amount').value || 1;
-    const from = document.getElementById('rate-from').value;
-    const to = document.getElementById('rate-to').value;
-    return `https://api.frankfurter.app/latest?amount=${amount}&from=${from}&to=${to}`;
-  }
-  function callRate() {
-    const url = buildRateUrl();
-    setUrl('rate-url', url);
-    send({
-      statusId: 'rate-status', rawId: 'rate-raw', renderedId: 'rate-rendered',
-      url,
-      render: json => {
-        const from = json.base;
-        const amount = json.amount;
-        const to = Object.keys(json.rates)[0];
-        const value = json.rates[to];
-        setRendered('rate-rendered',
-          `<div class="rate-card">
-            <div class="formula">${amount.toLocaleString()} ${from} =</div>
-            <div class="result">${value.toLocaleString()} ${to}</div>
-            <div class="date">기준일: ${json.date} · 출처 ECB</div>
-          </div>`);
-      }
-    });
-  }
-  ['rate-amount', 'rate-from', 'rate-to'].forEach(id =>
-    document.getElementById(id).addEventListener('input', () => setUrl('rate-url', buildRateUrl())));
-
-  // ============ 6. Country ============
-  function callCountry() {
-    const name = document.getElementById('country-name').value.trim() || 'korea';
-    const url = `https://restcountries.com/v3.1/name/${encodeURIComponent(name)}`;
-    setUrl('country-url', url);
-    send({
-      statusId: 'country-status', rawId: 'country-raw', renderedId: 'country-rendered',
-      url,
-      render: json => {
-        if (!Array.isArray(json) || !json[0] || !json[0].name) {
-          setRendered('country-rendered', '<p>국가를 찾지 못했어요. 영문으로 다시 입력해보세요.</p>');
-          return;
-        }
-        const cards = json.slice(0, 3).map(c => {
-          const nameKo = escapeHtml(c.translations?.kor?.common || c.name.common);
-          const nameCommon = escapeHtml(c.name.common);
-          const capital = escapeHtml((c.capital || ['—']).join(', '));
-          const pop = (c.population || 0).toLocaleString();
-          const langs = escapeHtml(c.languages ? Object.values(c.languages).join(', ') : '—');
-          const region = escapeHtml(c.region || '—');
-          const subregion = escapeHtml(c.subregion || '—');
-          const flag = c.flags?.png || c.flags?.svg || '';
-          return `<div class="country-card">
-            ${flag ? `<img src="${escapeHtml(flag)}" alt="${nameCommon} flag" />` : ''}
-            <div class="info">
-              <h5>${nameKo} <span style="font-size:13px; color:var(--subtle);">(${nameCommon})</span></h5>
-              <p>🏛 수도: <strong>${capital}</strong></p>
-              <p>👥 인구: <strong>${pop}</strong>명</p>
-              <p>🗣 언어: ${langs}</p>
-              <p>🌐 지역: ${region} / ${subregion}</p>
-            </div>
-          </div>`;
-        }).join('');
-        setRendered('country-rendered', cards);
-      }
-    });
-  }
-  document.getElementById('country-name').addEventListener('input', e => {
-    setUrl('country-url', `https://restcountries.com/v3.1/name/${encodeURIComponent(e.target.value || '')}`);
-  });
-
-  // ============ 7. NEIS 급식식단표 ============
+  // ============ 4. NEIS 급식식단표 ============
   const SCHOOL = { atpt: 'B10', code: '7010116' };
   const ALLERGENS = {
     1: '난류', 2: '우유', 3: '메밀', 4: '땅콩', 5: '대두',
@@ -2367,7 +1981,7 @@ response = client.messages.<span class="f">create</span>(
     setUrl('meal-url', buildMealUrl());
   })();
 
-  // ============ 8. Claude 챗봇 ============
+  // ============ 5. Claude 챗봇 ============
   const chatHistory = [];
 
   function escapeHtml(s) {
@@ -2477,135 +2091,11 @@ response = client.messages.<span class="f">create</span>(
     }
   });
 
-  // ============ 9. 위키백과 요약 ============
-  function buildWikiUrl() {
-    const term = document.getElementById('wiki-term').value.trim() || '세종대왕';
-    return 'https://ko.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(term);
-  }
-  function callWiki() {
-    const url = buildWikiUrl();
-    setUrl('wiki-url', url);
-    send({
-      statusId: 'wiki-status', rawId: 'wiki-raw', renderedId: 'wiki-rendered',
-      url,
-      render: json => {
-        if (json.type === 'disambiguation') {
-          setRendered('wiki-rendered', '<p>여러 항목을 가리키는 단어예요. 더 구체적인 검색어를 넣어보세요.</p>');
-          return;
-        }
-        if ((json.type && json.type.indexOf('not_found') !== -1) || !json.extract) {
-          setRendered('wiki-rendered', '<p>문서를 찾지 못했어요. 다른 검색어로 시도해보세요.</p>');
-          return;
-        }
-        const thumb = json.thumbnail && json.thumbnail.source;
-        const page = json.content_urls && json.content_urls.desktop && json.content_urls.desktop.page;
-        setRendered('wiki-rendered',
-          `<div class="wiki-card">
-            ${thumb ? `<img src="${escapeHtml(thumb)}" alt="${escapeHtml(json.title)}" />` : ''}
-            <div class="wiki-body">
-              <h5>${escapeHtml(json.title)}</h5>
-              ${json.description ? `<p class="wiki-desc">${escapeHtml(json.description)}</p>` : ''}
-              <p class="wiki-extract">${escapeHtml(json.extract)}</p>
-              ${page ? `<a class="wiki-link" href="${escapeHtml(page)}" target="_blank">위키백과에서 더 보기 →</a>` : ''}
-            </div>
-          </div>`);
-      }
-    });
-  }
-  document.getElementById('wiki-term').addEventListener('input', () => setUrl('wiki-url', buildWikiUrl()));
-
-  // ============ 10. QR 코드 ============
-  function buildQrUrl() {
-    const text = document.getElementById('qr-text').value.trim();
-    return 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data=' + encodeURIComponent(text);
-  }
-  function callQr() {
-    const text = document.getElementById('qr-text').value.trim();
-    if (!text) { setStatus('qr-status', '내용을 입력해주세요', 'err'); return; }
-    const url = buildQrUrl();
-    setUrl('qr-url', url);
-    setStatus('qr-status', '이미지 받는 중…');
-    const rendered = document.getElementById('qr-rendered');
-    rendered.classList.remove('empty');
-    rendered.innerHTML = 'QR 코드를 만드는 중…';
-    const img = new Image();
-    img.onload = () => {
-      setStatus('qr-status', '완료 · 이미지 응답', 'ok');
-      rendered.innerHTML =
-        `<div class="qr-card"><img src="${url}" alt="QR code" width="240" height="240" /><p class="qr-cap">📷 스마트폰 카메라로 찍어보세요</p></div>`;
-    };
-    img.onerror = () => {
-      setStatus('qr-status', '이미지를 불러오지 못했어요', 'err');
-      rendered.innerHTML = '<p style="color: var(--danger);">QR 생성 실패. 내용을 바꿔서 다시 시도해보세요.</p>';
-    };
-    img.src = url;
-  }
-  document.getElementById('qr-text').addEventListener('input', () => setUrl('qr-url', buildQrUrl()));
-
-  // ============ 11. 미세먼지(대기질) ============
-  // 한국 환경부 기준: [상한, 등급, 이모지, 색]
-  const PM25_LEVELS = [[15, '좋음', '😊', 'var(--success)'], [35, '보통', '🙂', 'var(--accent)'], [75, '나쁨', '😷', 'var(--warning)'], [Infinity, '매우 나쁨', '🤢', 'var(--danger)']];
-  const PM10_LEVELS = [[30, '좋음', '😊', 'var(--success)'], [80, '보통', '🙂', 'var(--accent)'], [150, '나쁨', '😷', 'var(--warning)'], [Infinity, '매우 나쁨', '🤢', 'var(--danger)']];
-  function gradeOf(levels, v) {
-    for (const l of levels) { if (v <= l[0]) return l; }
-    return levels[levels.length - 1];
-  }
-  function buildAirUrl() {
-    const [lat, lon] = document.getElementById('air-city').value.split(',');
-    return `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=pm10,pm2_5,european_aqi`;
-  }
-  function callAir() {
-    const url = buildAirUrl();
-    setUrl('air-url', url);
-    const cityLabel = document.getElementById('air-city').selectedOptions[0].textContent;
-    send({
-      statusId: 'air-status', rawId: 'air-raw', renderedId: 'air-rendered',
-      url,
-      render: json => {
-        const c = json.current || {};
-        const pm25 = c.pm2_5, pm10 = c.pm10;
-        if (pm25 == null && pm10 == null) {
-          setRendered('air-rendered', '<p>대기질 정보를 찾지 못했어요.</p>');
-          return;
-        }
-        // 한쪽만 결측일 수 있어 항목별로 따로 처리 (null을 '좋음'으로 오인 방지)
-        function box(val, levels, label) {
-          if (val == null) {
-            return `<div class="air-box" style="border-color:var(--border);">
-                <div class="air-emoji">❔</div>
-                <div class="air-val" style="color:var(--subtle);">–</div>
-                <div class="air-label">${label}</div>
-                <div class="air-badge" style="background:var(--subtle);">측정값 없음</div>
-              </div>`;
-          }
-          const g = gradeOf(levels, val);
-          return `<div class="air-box" style="border-color:${g[3]};">
-                <div class="air-emoji">${g[2]}</div>
-                <div class="air-val" style="color:${g[3]};">${Math.round(val)}<span>μg/m³</span></div>
-                <div class="air-label">${label}</div>
-                <div class="air-badge" style="background:${g[3]};">${g[1]}</div>
-              </div>`;
-        }
-        setRendered('air-rendered',
-          `<div class="air-card">
-            <div class="air-title">${cityLabel} 대기질 <span style="font-size:12px; color:var(--subtle);">측정 ${c.time || ''}</span></div>
-            <div class="air-grid">
-              ${box(pm25, PM25_LEVELS, '초미세먼지 PM2.5')}
-              ${box(pm10, PM10_LEVELS, '미세먼지 PM10')}
-            </div>
-            <p class="air-note">한국 환경부 기준 등급으로 표시했어요.</p>
-          </div>`);
-      }
-    });
-  }
-  document.getElementById('air-city').addEventListener('change', () => setUrl('air-url', buildAirUrl()));
-
   // ============ 종합: 범용 API 테스터 ============
   const PG_EXAMPLES = {
     dog: 'https://dog.ceo/api/breeds/image/random',
-    rate: 'https://api.frankfurter.app/latest?amount=100&from=USD&to=KRW',
-    country: 'https://restcountries.com/v3.1/name/korea',
-    wiki: 'https://ko.wikipedia.org/api/rest_v1/page/summary/세종대왕',
+    holiday: 'https://date.nager.at/api/v3/PublicHolidays/2026/KR',
+    weather: 'https://api.open-meteo.com/v1/forecast?latitude=37.5665&longitude=126.978&current=temperature_2m',
   };
   function pgFill(key) {
     if (PG_EXAMPLES[key]) document.getElementById('pg-url').value = PG_EXAMPLES[key];
